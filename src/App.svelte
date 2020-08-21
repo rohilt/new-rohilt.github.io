@@ -5,6 +5,7 @@
 	let doneTransition = true;
 	let showMenu = window.screen.availWidth >= 1024;
 	let canMovePastHome = false;
+	let showModal = false;
 	const handleNextPage = () => {
 		console.log("asdf")
 		if (canMovePastHome && pageId === 0) {
@@ -59,6 +60,12 @@
 	{/if}
 </nav>
 
+{#if showModal}
+	<div transition:slide="{{duration: 1000}}" class="fixed right-20 z-10 w-full h-full overflow-auto shadow-xl bg-white rounded">
+		<div class="font-display text-center text-xl">Details</div>
+	</div>
+{/if}
+
 {#if pageId === 0 && doneTransition}
 <style>
 	.page {
@@ -85,7 +92,7 @@
 		/* background-image: url("data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M36 0H0v36h36V0zM15.126 2H2v13.126c.367.094.714.24 1.032.428L15.554 3.032c-.188-.318-.334-.665-.428-1.032zM18 4.874V18H4.874c-.094-.367-.24-.714-.428-1.032L16.968 4.446c.318.188.665.334 1.032.428zM22.874 2h11.712L20 16.586V4.874c1.406-.362 2.512-1.468 2.874-2.874zm10.252 18H20v13.126c.367.094.714.24 1.032.428l12.522-12.522c-.188-.318-.334-.665-.428-1.032zM36 22.874V36H22.874c-.094-.367-.24-.714-.428-1.032l12.522-12.522c.318.188.665.334 1.032.428zm0-7.748V3.414L21.414 18h11.712c.362-1.406 1.468-2.512 2.874-2.874zm-18 18V21.414L3.414 36h11.712c.362-1.406 1.468-2.512 2.874-2.874zM4.874 20h11.712L2 34.586V22.874c1.406-.362 2.512-1.468 2.874-2.874z' fill='%23dcdcdc' fill-opacity='0.19' fill-rule='evenodd'/%3E%3C/svg%3E"); */
 	}
 </style>
-<main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 lg:flex p-10 lg:p-20 lg:pr-0 align-middle">
+<main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 lg:flex lg:flex-col p-10 lg:p-20 lg:pr-0 align-middle">
 	<div class="lg:w-1/2">
 		<h1 class="font-display text-4xl lg:text-5xl"> A little bit about me. </h1>
 		<div class="pt-4 font-body text-xl">
@@ -98,9 +105,36 @@
 			You can find more about my background and the projects I've worked on throughout this webpage. 
 			<!-- <br /> -->
 			Feel free to reach out to me through email or LinkedIn. 
+			I'm currently a junior at the University of Florida, where I'm studying computer science and mathematics, and I interned at American Express this past summer.  
+			<!-- <br /> -->
+			I have experience with several programming languages and frameworks, and I'm always looking to learn more. 
+			Right now, I'm learning more about Svelte (which this webpage is built with!). 
+			<br />
+			<br />
+			You can find more about my background and the projects I've worked on throughout this webpage. 
+			<!-- <br /> -->
+			Feel free to reach out to me through email or LinkedIn. 
+			I'm currently a junior at the University of Florida, where I'm studying computer science and mathematics, and I interned at American Express this past summer.  
+			<!-- <br /> -->
+			I have experience with several programming languages and frameworks, and I'm always looking to learn more. 
+			Right now, I'm learning more about Svelte (which this webpage is built with!). 
+			<br />
+			<br />
+			You can find more about my background and the projects I've worked on throughout this webpage. 
+			<!-- <br /> -->
+			Feel free to reach out to me through email or LinkedIn. 
+			I'm currently a junior at the University of Florida, where I'm studying computer science and mathematics, and I interned at American Express this past summer.  
+			<!-- <br /> -->
+			I have experience with several programming languages and frameworks, and I'm always looking to learn more. 
+			Right now, I'm learning more about Svelte (which this webpage is built with!). 
+			<br />
+			<br />
+			You can find more about my background and the projects I've worked on throughout this webpage. 
+			<!-- <br /> -->
+			Feel free to reach out to me through email or LinkedIn. 
 		</div>
 	</div>
-	<div class="mt-10 lg:mt-0 lg:w-1/2 lg:flex lg:items-center lg:justify-center">
+	<div class="mt-10 lg:mt-0 lg:w-1/2 lg:flex lg:items-center lg:justify-center lg:fixed lg:self-end">
 		<div class="max-w-xs rounded overflow-hidden shadow-lg bg-card-bg">
 			<img class="hidden lg:block w-full" src="personal.png" alt="Rohil Tuli">
 			<div class="px-6 py-4">
@@ -153,7 +187,7 @@
 	</div>
 	<h1 class="font-display text-4xl lg:text-5xl mt-4"> What I've been doing </h1>
 	<div class="pt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95 cursor-pointer">
+		<div on:click={() => showModal = true} class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95 cursor-pointer">
 			<div class="px-6 py-4">
 				<div class="font-display text-2xl mb-2">American Express</div>
 				<div class="font-display text-xl mb-2 text-gray-700">Technology Intern</div>
