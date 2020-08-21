@@ -1,11 +1,20 @@
 module.exports = {
   purge: [],
   theme: {
-    extend: {},
+    extend: {
+      opacity: {
+        '95': '0.95'
+      }
+    },
     fontFamily: {
-        'display': ['Abril Fatface'],
+        'display': ['Neuton'],
         'body': ['Open Sans'],
-    }
+        'subtitle': ['Playfair Display']
+    },
+    backgroundColor: theme => ({
+       ...theme('colors'),
+       'card-bg': '#fffefe',
+    })
   },
   variants: {},
   plugins: [],
