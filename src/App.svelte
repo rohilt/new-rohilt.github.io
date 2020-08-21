@@ -4,18 +4,26 @@
 	let pageId = 0;
 	let doneTransition = true;
 	let showMenu = window.screen.availWidth >= 1024;
+	let canMovePastHome = false;
+	const handleNextPage = () => {
+		console.log("asdf")
+		if (canMovePastHome && pageId === 0) {
+			pageId++;
+			doneTransition = false;
+		}
+	}
 </script>
 
-<div transition:fade class="page min-h-screen max-h-full flex flex-col">
+<div transition:fade class="page min-h-screen max-h-full flex flex-col select-none">
 <nav transition:slide class="flex sticky top-0 items-center justify-between flex-wrap bg-white p-4 shadow  bg-card-bg">
 	<span class="w-1/6 text-black ml-3 mr-6 font-semibold font-display text-5xl select-none">R/T</span>
-	<div class="block lg:hidden">
+	<div class="block lg:hidden select-none">
 		<button on:click={() => showMenu = !showMenu} class="flex items-center px-3 py-2 text-black-200 border-black-400 lg:hover:text-gray-500">
 		<svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
 		</button>
 	</div>
 	{#if showMenu}
-	<div transition:slide class="w-5/6 block flex-grow lg:flex lg:items-center lg:w-auto">
+	<div transition:slide class="w-5/6 block flex-grow lg:flex lg:items-center lg:w-auto  select-none">
 		<div class="font-display lg:flex lg:justify-center text-sm lg:flex-grow">
 		<a href="javascript:void(0)" on:click={() => {pageId = 0; doneTransition = false}} class="block mt-4 lg:inline-block lg:mt-0 text-2xl text-black-200 mr-8 lg:hover:font-semibold">
 			Home
@@ -43,7 +51,7 @@
 		</a>
 		</div>
 	</div>
-	<div transition:slide class="w-1/2 lg:w-1/6 justify-begin lg:justify-end flex self-end lg:self-auto mt-6 lg:mt-0 lg:items-center">
+	<div transition:slide class="w-1/2 lg:w-1/6 justify-begin lg:justify-end flex self-end lg:self-auto mt-6 lg:mt-0 lg:items-center select-none">
 	<!-- <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-black border-black hover:border-transparent hover:text-black-500 hover:bg-white mt-4 lg:mt-0">Download</a> -->
 		<a target="_blank" href="https://www.linkedin.com/in/rohiltuli/"><img class="object-contain h-16 w-16 p-4" src="linkedin2.png" alt="LinkedIn"/></a>
 		<a target="_blank" href="https://github.com/rohilt"><img class="object-contain h-16 w-16 p-4" src="github2.png" alt="GitHub"/></a>
@@ -58,9 +66,11 @@
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23e5ddd5' fill-opacity='0.26' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 	}
 </style>
-<main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 p-16 lg:p-20 align-middle">
-	<h1 class="font-display text-4xl lg:text-6xl"> Hello. I'm Rohil. </h1>
-	<h1 class="font-display text-4xl lg:text-6xl">Welcome to my website. </h1>
+<main on:click={handleNextPage} out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 pb-0 pt-16 px-16 lg:px-20 lg:py-16 align-middle select-none">
+	<h1 class="font-display text-5xl lg:text-6xl"> Hello. I'm Rohil. </h1>
+	<h1 class="font-display text-5xl lg:text-6xl">Welcome to my website. </h1>
+	<div on:introstart={() => canMovePastHome = false} on:introend={() => canMovePastHome = true} out:fade in:fade="{{delay: 5000}}" class="hidden lg:block font-body mt-10 text-xl uppercase tracking-wider animate-pulse text-gray-600">Click anywhere to continue</div>
+	<div on:introstart={() => canMovePastHome = false} on:introend={() => canMovePastHome = true} in:fade="{{delay: 5000}}" class="lg:hidden font-body text-center mt-10 text-xl uppercase tracking-wider animate-pulse text-gray-600">Tap to continue</div>
 </main>
 <img out:blur in:blur="{{delay: 250}}" class="hidden lg:block pin-b sticky bottom-0" src="mountain.png" alt="mountain" />
 <!-- <img out:fade in:fade="{{delay: 250}}" class="lg:hidden pin-b sticky bottom-0" src="mountain-cropped.png" alt="mountain" /> -->
@@ -77,7 +87,7 @@
 </style>
 <main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 lg:flex p-10 lg:p-20 lg:pr-0 align-middle">
 	<div class="lg:w-1/2">
-		<h1 class="font-display text-3xl lg:text-5xl"> A little bit about me. </h1>
+		<h1 class="font-display text-4xl lg:text-5xl"> A little bit about me. </h1>
 		<div class="pt-4 font-body text-xl">
 			I'm currently a junior at the University of Florida, where I'm studying computer science and mathematics, and I interned at American Express this past summer.  
 			<!-- <br /> -->
@@ -122,9 +132,9 @@
 	}
 </style>
 <main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 p-10 lg:p-20 align-middle">
-	<h1 class="font-display text-3xl lg:text-5xl"> Where I've learned </h1>
+	<h1 class="font-display text-4xl lg:text-5xl"> Where I've learned </h1>
 	<div class="pt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-card-bg">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-xl mb-2">The University of Florida</div>
 			<p class="text-gray-700 text-base">
@@ -132,7 +142,7 @@
 			</p>
 			</div>
 		</div>
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-xl mb-2">Land O Lakes High School</div>
 			<p class="text-gray-700 text-base">
@@ -141,14 +151,14 @@
 			</div>
 		</div>
 	</div>
-	<h1 class="font-display text-3xl lg:text-5xl mt-4"> What I've been doing </h1>
+	<h1 class="font-display text-4xl lg:text-5xl mt-4"> What I've been doing </h1>
 	<div class="pt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white cursor-pointer">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95 cursor-pointer">
 			<div class="px-6 py-4">
 				<div class="font-display text-2xl mb-2">American Express</div>
 				<div class="font-display text-xl mb-2 text-gray-700">Technology Intern</div>
 				<div class="font-body font-thin uppercase tracking-wider text-sm mb-2 text-gray-600">July 2020 to August 2020</div>
-				<button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+				<button class="bg-transparent hover:bg-blue-500 bg-opacity-50 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-black border-opacity-50 hover:border-transparent rounded-full">
 					...
 				</button>
 			<!-- <p class="text-gray-700 text-base">
@@ -156,7 +166,7 @@
 			</p> -->
 			</div>
 		</div>
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-2xl mb-2">Embedded Systems Lab</div>
 			<div class="font-display text-xl mb-2 text-gray-600">Undergraduate Researcher</div>
@@ -165,7 +175,7 @@
 			</p> -->
 			</div>
 		</div>
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-xl mb-2">Mathnasium</div>
 			<div class="font-display text-l mb-2 text-gray-600">Instructor</div>
@@ -174,7 +184,7 @@
 			</p>
 			</div>
 		</div>
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-xl mb-2">FRC Team 5276</div>
 			<div class="font-display text-l mb-2 text-gray-600">Lead Programmer</div>
@@ -183,7 +193,7 @@
 			</p>
 			</div>
 		</div>
-		<div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
 			<div class="font-display text-xl mb-2">LOLHS Mu Alpha Theta</div>
 			<div class="font-display text-l mb-2 text-gray-600">Vice President & Tutor</div>
@@ -204,7 +214,7 @@
 	}
 </style>
 <main out:fade on:outroend={() => doneTransition = true} in:fade="{{delay: 500}}" class="flex-1 p-10 lg:p-20 align-middle">
-	<h1 class="font-display text-3xl lg:text-5xl"> Some of the projects I've worked on. </h1>
+	<h1 class="font-display text-4xl lg:text-5xl"> Some of the projects I've worked on. </h1>
 	<div class="pt-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
 		<div class="max-w-sm rounded overflow-hidden shadow-xl bg-white bg-opacity-95">
 			<div class="px-6 py-4">
