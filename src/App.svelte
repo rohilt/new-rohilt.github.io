@@ -16,7 +16,7 @@
 </script>
 
 <div transition:fade class="page min-h-screen max-h-full flex flex-col select-none">
-<nav transition:slide class="flex sticky top-0 items-center justify-between flex-wrap bg-white p-4 shadow  bg-card-bg">
+<nav transition:slide class="flex sticky top-0 items-center justify-between flex-wrap bg-white p-4 shadow z-10 bg-card-bg">
 	<span class="w-1/6 text-black ml-3 mr-6 font-semibold font-display text-5xl select-none">R/T</span>
 	<div class="block lg:hidden select-none">
 		<button on:click={() => showMenu = !showMenu} class="flex items-center px-3 py-2 text-black-200 border-black-400 lg:hover:text-gray-500">
@@ -24,7 +24,7 @@
 		</button>
 	</div>
 	{#if showMenu}
-	<div transition:slide class="w-5/6 block flex-grow lg:flex lg:items-center lg:w-auto  select-none">
+	<div transition:slide class="w-5/6 block flex-grow lg:flex lg:items-center lg:w-auto select-none">
 		<div class="font-display lg:flex lg:justify-center text-sm lg:flex-grow">
 		<a href="javascript:void(0)" on:click={() => {pageId = 0; doneTransition = false}} class="block mt-4 lg:inline-block lg:mt-0 text-2xl text-black-200 mr-8 lg:hover:font-semibold">
 			Home
@@ -61,7 +61,9 @@
 </nav>
 
 {#if showModal}
-	<div transition:slide="{{duration: 1000}}" class="fixed right-20 z-10 w-full h-full overflow-auto shadow-xl bg-white rounded">
+	<div transition:fade on:click={() => showModal = false} class="z-10 hidden w-full h-full flex flex-row bg-card-bg bg-opacity-75 lg:block fixed" />
+	<div transition:fade class="flex-col lg:max-w-screen-md lg:mx-auto lg:my-40 fixed inset-0 w-auto h-auto flex bg-card-bg z-30 overflow-auto shadow-2xl rounded">
+		<div class="flex content-right self-end h-10 w-10 pl-2 pr-4 pt-4 pb-2"><img src="close-line.png" alt="Close"/></div>
 		<div class="font-display text-center text-xl">Details</div>
 	</div>
 {/if}
